@@ -2,9 +2,16 @@ from selenium import webdriver
 
 
 def first_step():
-    driver = webdriver.Chrome()
+    """
+    Existe um bug do ChromeDriver ao rodar o selenium pela linha de comando,
+    as linhas 9 e 10 contornam esse problema
+    """
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    driver = webdriver.Chrome(options=options)
     driver.get('https://www.vultr.com/products/cloud-compute/#pricing')
     rows = driver.find_elements_by_xpath('//div[@class="pt__row"]')
+    list_ssd_cloud_instances = []
 
     for row in rows:
         row_data = str(row.text).split('\n')
@@ -16,6 +23,9 @@ def first_step():
             'bandwidth': row_data[4],
             'price': row_data[5]
         }
-        print(ssd_cloud_instances)
+        list_ssd_cloud_instances.append(ssd_cloud_instances)
+
 
     driver.close()
+
+    return list_ssd_cloud_instances
