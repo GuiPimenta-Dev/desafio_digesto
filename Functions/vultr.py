@@ -1,7 +1,7 @@
 from selenium import webdriver
 
 
-def first_step():
+def vultr():
     """
     Existe um bug do ChromeDriver ao rodar o selenium pela linha de comando,
     as linhas 9 e 10 contornam esse problema
@@ -17,11 +17,11 @@ def first_step():
         row_data = str(row.text).split('\n')
         if 'IPv6' in row_data: row_data.remove('IPv6')
         ssd_cloud_instances = {
-            'cpu': row_data[2],
-            'memory': row_data[3],
-            'storage': row_data[1],
-            'bandwidth': row_data[4],
-            'price': row_data[5]
+            "cpu": row_data[2],
+            "memory": row_data[3],
+            "storage": row_data[1],
+            "bandwidth": row_data[4],
+            "price": row_data[5]
         }
         list_ssd_cloud_instances.append(ssd_cloud_instances)
 
