@@ -6,9 +6,3 @@ class VultrEnum(NamedTuple):
     DATA_XPATH = '//div[@class="pt__row"]'
 
 
-class VultrItemsEnum(NamedTuple):
-    CPU = 'cpu'
-    MEMORY = 'memory'
-    STORAGE = 'storage'
-    BANDWIDTH = 'bandwidth'
-    PRICE = 'price'

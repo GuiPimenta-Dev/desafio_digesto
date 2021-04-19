@@ -1,0 +1,7 @@
+cpu,memory,ssd_disk,transfer,price
+1 CPU,1 GB,25 GB SSD Disk,1000 GB transfer,$5.00/mo
+1 CPU,2 GB,50 GB SSD Disk,2 TB transfer,$10.00/mo
+2 CPUs,2 GB,60 GB SSD Disk,3 TB transfer,$15.00/mo
+2 CPUs,4 GB,80 GB SSD Disk,4 TB transfer,$20.00/mo
+4 CPUs,8 GB,160 GB SSD Disk,5 TB transfer,$40.00/mo
+8 CPUs,16 GB,320 GB SSD Disk,6 TB transfer,$80.00/mo

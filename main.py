@@ -1,49 +1,39 @@
-import sys, json, csv
+import sys
+
+from constants.items import OutputsEnum, SystemsEnum
+
+from outputs.csv_output import save_digital_ocean_results_in_csv, save_vultr_results_in_csv
+from outputs.screen_output import print_results_on_screen
+from outputs.json_output import save_results_in_json
+
+from spiders.extractor_digital_ocean import spider_extractor_digital_ocean
 from spiders.extractor_vultr import spider_extractor_vultr
-from constants.extractor_vultr import VultrItemsEnum
 
 """
     Função Responsável por decidir a saída das spiders
     de acordo com os argumentos informados pelo usuário
 """
 
-
 def main(argv):
     if argv:
-        rows = spider_extractor_vultr()
+        rows_vultr = spider_extractor_vultr()
+        rows_digital_ocean = spider_extractor_digital_ocean()
+
         for opt in argv:
             if "--help" in opt:
                 show_help()
 
             elif "--print" in opt:
-
-                for row in rows:
-                    print(row)
+                print_results_on_screen(SystemsEnum.VULTR, rows_vultr)
+                print_results_on_screen(SystemsEnum.DIGITAL_OCEAN, rows_digital_ocean)
 
             elif "--save_csv" in opt:
-                with open('outputs/csv_output.csv', 'w', newline='') as csv_file:
-                    csv_file = csv.writer(csv_file, delimiter=',')
-
-                    csv_file.writerow([
-                        VultrItemsEnum.CPU,
-                        VultrItemsEnum.MEMORY,
-                        VultrItemsEnum.STORAGE,
-                        VultrItemsEnum.BANDWIDTH,
-                        VultrItemsEnum.PRICE
-                    ])
-
-                    for row in rows:
-                        csv_file.writerow([
-                            row[VultrItemsEnum.CPU],
-                            row[VultrItemsEnum.MEMORY],
-                            row[VultrItemsEnum.STORAGE],
-                            row[VultrItemsEnum.BANDWIDTH],
-                            row[VultrItemsEnum.PRICE]
-                        ])
+                save_vultr_results_in_csv(rows_vultr)
+                save_digital_ocean_results_in_csv(rows_digital_ocean)
 
             elif "--save_json" in opt:
-                with open('outputs/json_output.json', 'w') as json_file:
-                    json.dump(rows, json_file)
+                save_results_in_json(OutputsEnum.VULTR_JSON_FILE, rows_vultr)
+                save_results_in_json(OutputsEnum.DIGITAL_OCEAN_JSON_FILE, rows_digital_ocean)
 
             else:
                 show_help()
@@ -54,9 +44,9 @@ def main(argv):
 def show_help():
     print('\n')
     print('#' * 45)
-    print('--help - Imprime os argumentos na tela')
+    print('--help - Instruções')
     print('--print - Imprime resultados na tela')
-    print('--save_csv - Salva dados em arquivo csv')
+    print('--save_csv - Salva dados em arquivo digital_ocean')
     print('--save_json - Salva dados em arquivo json')
     print('#' * 45)
 
