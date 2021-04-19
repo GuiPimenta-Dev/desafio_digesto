@@ -17,6 +17,7 @@ class OutputsEnum(NamedTuple):
     VULTR_JSON_FILE = 'outputs/files/vultr/vultr_output.json'
     DIGITAL_OCEAN_JSON_FILE = 'outputs/files/digital_ocean/digital_ocean.json'
 
+
 class SystemsEnum(NamedTuple):
     VULTR = 'VULTR'
     DIGITAL_OCEAN = "DIGITAL OCEAN"
