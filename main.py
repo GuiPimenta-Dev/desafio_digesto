@@ -14,7 +14,7 @@ def choose_output(argv):
                     print(row)
 
             elif "--save_csv" in opt:
-                with open('csv_output.csv', 'w', newline='') as csv_file:
+                with open('Outputs/csv_output.csv', 'w', newline='') as csv_file:
                     csv_file = csv.writer(csv_file, delimiter=',')
                     csv_file.writerow(["cpu", "memory", "storage", "bandwidth", "price"])
 
@@ -26,7 +26,7 @@ def choose_output(argv):
                                            row["price"]])
 
             elif "--save_json" in opt:
-                with open('json_output.json', 'w') as json_file:
+                with open('Outputs/json_output.json', 'w') as json_file:
                     json.dump(rows, json_file)
 
             else:
