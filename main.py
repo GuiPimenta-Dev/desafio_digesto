@@ -1,8 +1,8 @@
-import sys, json, csv
+import sys
+import json, csv
 from Functions.vultr import vultr
 
-
-def main(argv):
+def choose_output(argv):
     if argv:
         rows = vultr()
         for opt in argv:
@@ -14,7 +14,16 @@ def main(argv):
                     print(row)
 
             elif "--save_csv" in opt:
-                pass
+                with open('csv_output.csv', 'w', newline='') as csv_file:
+                    csv_file = csv.writer(csv_file, delimiter=',')
+                    csv_file.writerow(["cpu", "memory", "storage", "bandwidth", "price"])
+
+                    for row in rows:
+                        csv_file.writerow([row["cpu"],
+                                           row["memory"],
+                                           row["storage"],
+                                           row["bandwidth"],
+                                           row["price"]])
 
             elif "--save_json" in opt:
                 with open('json_output.json', 'w') as json_file:
@@ -36,5 +45,7 @@ def show_help():
     print('#' * 45)
 
 
+
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    choose_output(sys.argv[1:])
+
