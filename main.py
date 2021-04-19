@@ -1,32 +1,48 @@
-import sys
-import json, csv
-from Functions.vultr import vultr
+import sys, json, csv
+from spiders.extractor_vultr import spider_extractor_vultr
+from constants.extractor_vultr import VultrItemsEnum
 
-def choose_output(argv):
+"""
+    Função Responsável por decidir a saída das spiders
+    de acordo com os argumentos informados pelo usuário
+"""
+
+
+def main(argv):
     if argv:
-        rows = vultr()
+        rows = spider_extractor_vultr()
         for opt in argv:
             if "--help" in opt:
                 show_help()
 
             elif "--print" in opt:
+
                 for row in rows:
                     print(row)
 
             elif "--save_csv" in opt:
-                with open('Outputs/csv_output.csv', 'w', newline='') as csv_file:
+                with open('outputs/csv_output.csv', 'w', newline='') as csv_file:
                     csv_file = csv.writer(csv_file, delimiter=',')
-                    csv_file.writerow(["cpu", "memory", "storage", "bandwidth", "price"])
+
+                    csv_file.writerow([
+                        VultrItemsEnum.CPU,
+                        VultrItemsEnum.MEMORY,
+                        VultrItemsEnum.STORAGE,
+                        VultrItemsEnum.BANDWIDTH,
+                        VultrItemsEnum.PRICE
+                    ])
 
                     for row in rows:
-                        csv_file.writerow([row["cpu"],
-                                           row["memory"],
-                                           row["storage"],
-                                           row["bandwidth"],
-                                           row["price"]])
+                        csv_file.writerow([
+                            row[VultrItemsEnum.CPU],
+                            row[VultrItemsEnum.MEMORY],
+                            row[VultrItemsEnum.STORAGE],
+                            row[VultrItemsEnum.BANDWIDTH],
+                            row[VultrItemsEnum.PRICE]
+                        ])
 
             elif "--save_json" in opt:
-                with open('Outputs/json_output.json', 'w') as json_file:
+                with open('outputs/json_output.json', 'w') as json_file:
                     json.dump(rows, json_file)
 
             else:
@@ -45,7 +61,5 @@ def show_help():
     print('#' * 45)
 
 
-
 if __name__ == '__main__':
-    choose_output(sys.argv[1:])
-
+    main(sys.argv[1:])
