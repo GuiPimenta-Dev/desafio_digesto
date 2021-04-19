@@ -46,7 +46,7 @@ def show_help():
     print('#' * 45)
     print('--help - Instruções')
     print('--print - Imprime resultados na tela')
-    print('--save_csv - Salva dados em arquivo digital_ocean')
+    print('--save_csv - Salva dados em arquivo csv')
     print('--save_json - Salva dados em arquivo json')
     print('#' * 45)
 
